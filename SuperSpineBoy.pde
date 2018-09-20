@@ -1,5 +1,6 @@
 class SuperSpineboy extends ApplicationAdapter {
-  static Vector2 temp = new Vector2();
+  
+   Vector2 temp = new Vector2();
 
   View view;
   Model model;

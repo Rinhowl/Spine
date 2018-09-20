@@ -1,14 +1,15 @@
 class Enemy extends Character {
-  static float heightSource = 398, width = 105 * scale, height = 200 * scale;
+  static final float scale = 1 / 64f;
+  static final float heightSource = 398, width = 105 * scale, height = 200 * scale;
 
-  static float maxVelocityMinX = 4f, maxVelocityMaxX = 8.5f, maxVelocityAirX = 19f;
-  static float hpWeak = 1, hpSmall = 2, hpNormal = 3, hpStrong = 5, hpBecomesBig = 8, hpBig = 20;
-  static float corpseTime = 5 * 60, fadeTime = 3;
-  static float jumpDistanceNormal = 20, jumpDelayNormal = 1.6f, jumpVelocityNormal = 12, jumpVelocityBig = 18;
-  static float sizeSmall = 0.5f, sizeBig = 2.5f, sizeStrong = 1.3f, bigDuration = 2, smallCount = 14;
+  static final float maxVelocityMinX = 4f, maxVelocityMaxX = 8.5f, maxVelocityAirX = 19f;
+  static final float hpWeak = 1, hpSmall = 2, hpNormal = 3, hpStrong = 5, hpBecomesBig = 8, hpBig = 20;
+  static final float corpseTime = 5 * 60, fadeTime = 3;
+  static final float jumpDistanceNormal = 20, jumpDelayNormal = 1.6f, jumpVelocityNormal = 12, jumpVelocityBig = 18;
+  static final float sizeSmall = 0.5f, sizeBig = 2.5f, sizeStrong = 1.3f, bigDuration = 2, smallCount = 14;
 
-  static float normalKnockbackX = 19, normalKnockbackY = 9, bigKnockbackX = 12, bigKnockbackY = 6;
-  static float collisionDelay = 0.3f;
+  static final float normalKnockbackX = 19, normalKnockbackY = 9, bigKnockbackX = 12, bigKnockbackY = 6;
+  static final float collisionDelay = 0.3f;
 
   float deathTimer = corpseTime;
   float maxVelocityGroundX;
@@ -167,7 +168,9 @@ class Enemy extends Character {
     return result;
   }
 
+/**
   enum Type {
     weak, normal, strong, becomesBig, big, small
   }
+  */
 }

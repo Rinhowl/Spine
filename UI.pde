@@ -1,5 +1,51 @@
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics.DisplayMode;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteCache;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar.ProgressBarStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.UIUtils;
+import com.badlogic.gdx.utils.FloatArray;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.esotericsoftware.spine.SkeletonRendererDebug;
+import com.badlogic.gdx.math.Interpolation;
+
 class UI extends InputAdapter {
-  static final Color gray = new Color(0.15f, 0.15f, 0.15f, 1);
+  static final float scale = 1 / 64f;
+  Color gray = new Color(0.15f, 0.15f, 0.15f, 1);
+  
+  static final float cameraMinWidth = 16, cameraMaxWidth = 28, cameraHeight = 16, cameraZoom = 0.4f, cameraZoomSpeed = 0.5f;
+  static final float cameraBottom = 2, cameraTop = 7, cameraMinX = 1;
+  static final float cameraLookahead = 0.75f, cameraLookaheadSpeed = 8f, cameraLookaheadSpeedSlow = 3f;
+  static final float cameraSpeed = 5f, cameraShake = 6 * scale;
 
   View view;
   Model model;
@@ -56,7 +102,7 @@ class UI extends InputAdapter {
 
     healthBar = new ProgressBar(0, Player.hpStart, 1, false, skin);
     healthBar.setAnimateDuration(0.3f);
-    healthBar.setAnimateInterpolation(fade);
+    healthBar.setAnimateInterpolation(Interpolation.fade);
     fpsLabel = new Label("", skin);
     bindsLabel = new Label("", skin);
     debugButton = button("Debug", true);
@@ -73,7 +119,7 @@ class UI extends InputAdapter {
     splashImage.setScaling(Scaling.fit);
 
     splashTextImage = new Image();
-    splashTextImage.addAction(forever(sequence(fadeOut(0.4f, pow2In), fadeIn(0.4f, pow2Out))));
+    splashTextImage.addAction(Actions.forever(Actions.sequence(Actions.fadeOut(0.4f, Interpolation.pow2In), Actions.fadeIn(0.4f, Interpolation.pow2Out))));
   }
 
   private void layout () {
@@ -123,9 +169,9 @@ class UI extends InputAdapter {
         menu.clearActions();
         menu.getColor().a = menu.isVisible() ? 1 : 0;
         if (menu.isVisible())
-          menu.addAction(sequence(alpha(0, 0.5f, fade), hide()));
+          menu.addAction(Actions.sequence(Actions.alpha(0, 0.5f, Interpolation.fade), Actions.hide()));
         else
-          menu.addAction(sequence(show(), alpha(1, 0.5f, fade)));
+          menu.addAction(Actions.sequence(Actions.show(), Actions.alpha(1, 0.5f, Interpolation.fade)));
         menuButton.getColor().a = menu.isVisible() ? 0.3f : 1;
       }
     });
@@ -149,7 +195,7 @@ class UI extends InputAdapter {
           model.controller.restart();
           splashTable.clearActions();
           splashTable.getColor().a = 1;
-          splashTable.addAction(sequence(fadeOut(1, fade), removeActor()));
+          splashTable.addAction(Actions.sequence(Actions.fadeOut(1, Interpolation.fade), Actions.removeActor()));
           hasSplash = false;
           return true;
         }
@@ -318,7 +364,7 @@ class UI extends InputAdapter {
     stage.addActor(splashTable);
     splashTable.clearActions();
     splashTable.getColor().a = 0;
-    splashTable.addAction(fadeIn(1));
+    splashTable.addAction(Actions.fadeIn(1));
     hasSplash = true;
   }
 

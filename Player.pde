@@ -1,17 +1,18 @@
 class Player extends Character {
-  static float heightSource = 625, width = 67 * scale, height = 285 * scale;
-  static float hpStart = 4, hpDuration = 15;
+  static final float scale = 1 / 64f;
+  static final float heightSource = 625, width = 67 * scale, height = 285 * scale;
+  static final float hpStart = 4, hpDuration = 15;
 
-  static float maxVelocityGroundX = 12.5f, maxVelocityAirX = 13.5f;
-  static float playerJumpVelocity = 22f, jumpDamping = 0.5f, jumpOffsetVelocity = 10, jumpOffsetY = 120 * scale;
-  static float airJumpTime = 0.1f;
+  static final float maxVelocityGroundX = 12.5f, maxVelocityAirX = 13.5f;
+  static final float playerJumpVelocity = 22f, jumpDamping = 0.5f, jumpOffsetVelocity = 10, jumpOffsetY = 120 * scale;
+  static final float airJumpTime = 0.1f;
 
-  static float shootDelay = 0.1f, shootOffsetX = 160, shootOffsetY = 11;
-  static float bulletSpeed = 34, bulletInheritVelocity = 0.4f, burstDuration = 0.18f;
-  static float kickbackShots = 33, kickbackAngle = 30, kickbackVarianceShots = 11, kickbackVariance = 6, kickback = 1.6f;
+  static final float knockbackX = 14, knockbackY = 5, collisionDelay = 2.5f, flashTime = 0.07f;
+  static final float headBounceX = 12, headBounceY = 20;
 
-  static float knockbackX = 14, knockbackY = 5, collisionDelay = 2.5f, flashTime = 0.07f;
-  static float headBounceX = 12, headBounceY = 20;
+
+
+
 
   float shootTimer;
   float collisionTimer;

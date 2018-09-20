@@ -1,7 +1,16 @@
+
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.ObjectMap;
 
 class Assets {
+  static final float fps = 1 / 30f;
+  
   TextureAtlas playerAtlas, enemyAtlas;
   TextureRegion bulletRegion, hitRegion, crosshair;
   TextureRegion titleRegion, gameOverRegion, youLoseRegion, youWinRegion, startRegion;
@@ -100,6 +109,7 @@ class Assets {
     enemyAtlas.dispose();
   }
 
+/**
   enum SoundEffect {
     shoot, hit, footstep1, footstep2, squish, hurtPlayer, hurtAlien;
 
@@ -110,4 +120,5 @@ class Assets {
       sound.play(volume);
     }
   }
+  */
 }

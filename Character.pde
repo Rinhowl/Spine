@@ -1,8 +1,9 @@
 class Character {
-  static float minVelocityX = 0.001f, maxVelocityY = 20f;
-  static float groundedTime = 0.15f;
-  static float dampingGroundX = 36, dampingAirX = 15, collideDampingX = 0.7f;
-  static float runGroundX = 80, runAirSame = 45, runAirOpposite = 45;
+  static final float minVelocityX = 0.001f, maxVelocityY = 20f;
+  static final float groundedTime = 0.15f;
+  static final float dampingGroundX = 36, dampingAirX = 15, collideDampingX = 0.7f;
+  static final float runGroundX = 80, runAirSame = 45, runAirOpposite = 45;
+  static final float gravity = 32;
 
   Model model;
   Vector2 position = new Vector2();

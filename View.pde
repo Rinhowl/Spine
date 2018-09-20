@@ -1,16 +1,42 @@
+import com.esotericsoftware.spine.Animation;
+import com.esotericsoftware.spine.SkeletonRenderer;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.FloatArray;
+import com.badlogic.gdx.utils.ObjectFloatMap;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+
 class View extends InputAdapter {
-  static float bulletHitTime = 0.2f, bulletHitOffset = 50 * scale;
+  static final float scale = 1 / 64f;
+  static final float bulletHitTime = 0.2f, bulletHitOffset = 50 * scale;
 
-  static float cameraMinWidth = 16, cameraMaxWidth = 28, cameraHeight = 16, cameraZoom = 0.4f, cameraZoomSpeed = 0.5f;
-  static float cameraBottom = 2, cameraTop = 7, cameraMinX = 1;
-  static float cameraLookahead = 0.75f, cameraLookaheadSpeed = 8f, cameraLookaheadSpeedSlow = 3f;
-  static float cameraSpeed = 5f, cameraShake = 6 * scale;
+  static final float cameraMinWidth = 16, cameraMaxWidth = 28, cameraHeight = 16, cameraZoom = 0.4f, cameraZoomSpeed = 0.5f;
+  static final float cameraBottom = 2, cameraTop = 7, cameraMinX = 1;
+  static final float cameraLookahead = 0.75f, cameraLookaheadSpeed = 8f, cameraLookaheadSpeedSlow = 3f;
+  static final float cameraSpeed = 5f, cameraShake = 6 * scale;
+  
+  static final float knockbackX = 14, knockbackY = 5, collisionDelay = 2.5f, flashTime = 0.07f;
+  static final float headBounceX = 12, headBounceY = 20;
+ 
+  static final float playerJumpVelocity = 22f, jumpDamping = 0.5f, jumpOffsetVelocity = 10, jumpOffsetY = 120 * scale;
+  
 
-  static int[] mapLayersOpaque1 = {1};
-  static int[] mapLayersBackground2 = {2, 3, 4, 5, 6};
-  static int[] mapLayersOpaque3 = {10};
-  static int[] mapForegroundLayers4 = {7, 8,};
-  static int[] mapForegroundLayers5 = {11};
+  int[] mapLayersOpaque1 = {1};
+  int[] mapLayersBackground2 = {2, 3, 4, 5, 6};
+  int[] mapLayersOpaque3 = {10};
+  int[] mapForegroundLayers4 = {7, 8,};
+  int[] mapForegroundLayers5 = {11};
 
   Model model;
   Player player;
@@ -292,12 +318,12 @@ class View extends InputAdapter {
     return false;
   }
 
-  /** Stores information needed by the view for a character state. */
-  static class StateView {
+  /** Stores information needed by the view for a character state. 
+  class StateView {
     Animation animation;
     boolean loop;
     // Controls the start frame when changing from another animation to this animation.
     ObjectFloatMap<Animation> startTimes = new ObjectFloatMap();
     float defaultStartTime;
-  }
+  }*/
 }

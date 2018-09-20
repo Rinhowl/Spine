@@ -1,4 +1,9 @@
 class PlayerView extends CharacterView {
+  static final float scale = 1 / 64f;
+  static final float shootDelay = 0.1f, shootOffsetX = 160, shootOffsetY = 11;
+  static final float bulletSpeed = 34, bulletInheritVelocity = 0.4f, burstDuration = 0.18f;
+  static final float kickbackShots = 33, kickbackAngle = 30, kickbackVarianceShots = 11, kickbackVariance = 6, kickback = 1.6f;
+
   Player player;
   Bone rearUpperArmBone, rearBracerBone, gunBone, headBone, torsoBone, frontUpperArmBone;
   Animation shootAnimation, hitAnimation;
@@ -29,12 +34,13 @@ class PlayerView extends CharacterView {
       public void event (int trackIndex, Event event) {
         if (event.getData() == footstepEvent) {
           if (event.getInt() == 1)
-            SoundEffect.footstep1.play();
+          SoundEffect.footstep1.play();
           else
             SoundEffect.footstep2.play();
         }
       }
-    });
+    }
+    );
   }
 
   void update (float delta) {
@@ -78,7 +84,7 @@ class PlayerView extends CharacterView {
       skeleton.updateWorldTransform();
 
       // Compute the arm's angle to the mouse, flipping it based on the direction the player faces.
-      Vector2 bonePosition = temp2.set(rearUpperArmBone.getWorldX() + skeleton.getX(),
+      Vector2 bonePosition = temp2.set(rearUpperArmBone.getWorldX() + skeleton.getX(), 
         rearUpperArmBone.getWorldY() + skeleton.getY());
       float angle = bonePosition.sub(mouse).angle();
       float behind = (angle < 90 || angle > 270) ? -1 : 1;

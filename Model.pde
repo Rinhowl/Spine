@@ -1,9 +1,22 @@
+import com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.FloatArray;
+import com.badlogic.gdx.utils.Pools;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+
 class Model {
-  static float scale = 1 / 64f;
-  static float gravity = 32;
-  static float fps = 1 / 30f;
-  static float gameOverSlowdown = 5.5f;
-  static int mapCollisionLayer = 0;
+  static final float scale = 1 / 64f;
+  static final float gameOverSlowdown = 5.5f;
+  static final int mapCollisionLayer = 0;
+  
+ 
 
   SuperSpineboy controller;
   Player player;
@@ -252,11 +265,13 @@ class Model {
     return timeScale;
   }
 
+  /**
   enum State {
     idle, run, jump, death, fall
   }
+  */
 
-  static class Trigger {
+  class Trigger {
     float x;
     Array<Enemy> enemies = new Array();
   }
