@@ -9,11 +9,13 @@ import com.badlogic.gdx.graphics.GL20;
  * @version 1.0.0
  *
  */
+ 
+
 
 //系统全路径
-static final String system_path = "/Users/rinhowl/Desktop/Spine/";
-static final String ATLAS = system_path + "spineboy/spineboy-pma.atlas";//图集位置
-static final String SKELETON = system_path + "spineboy/spineboy-ess.json";//json格式的骨骼数据位置
+String system_path;
+String ATLAS = "spineboy/spineboy-pma.atlas";//图集位置(相对于项目)
+String SKELETON = "spineboy/spineboy-ess.json";//json格式的骨骼数据位置
 
 SpriteBatch batch;
 SkeletonRenderer renderer;
@@ -22,6 +24,7 @@ Skeleton skeleton;
 AnimationState animationState;
 
 void setup() {
+  system_path = sketchPath() + "/";
   new LwjglApplication(new SimpleSpine());
 }
 
@@ -38,13 +41,13 @@ class SimpleSpine extends ApplicationAdapter {
     batch = new SpriteBatch();
     renderer = new SkeletonRenderer();
     // 1.加载纹理图集
-    atlas = new TextureAtlas(Gdx.files.internal(ATLAS));
+    atlas = new TextureAtlas(Gdx.files.internal(system_path + ATLAS));
     
     // 2.读取json数据
     SkeletonJson json = new SkeletonJson(atlas);// 根据altas创建一个骨架Json对象，方便构建骨架对象和图集对象之间的连接
     json.setScale(0.6f);// 缩放，设置后不可更改
     // SkeletonData就相当于.json文件中的骨架数据
-    SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal(SKELETON));// 读取骨架数据
+    SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal(system_path + SKELETON));// 读取骨架数据
     
     // 3.初始化骨骼对象
     skeleton = new Skeleton(skeletonData);
